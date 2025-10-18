@@ -1,0 +1,25 @@
+{
+	"name": "zeta-reactivity",
+	"version": "1.0.0",
+	"description": "reactivity",
+	"author": "zeta",
+	"license": "ISC",
+	"private": "true",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"build": "rollup -c",
+		"test": "vitest"
+	},
+	"devDependencies": {
+		"rimraf": "^6.0.1",
+		"rollup": "^4.52.4",
+		"rollup-plugin-dts": "^6.2.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.9.3",
+		"@types/node": "^20.0.0",
+		"rollup-plugin-typescript2": "^0.36.0",
+		"vitest": "^3.2.4"
+	}
+}
