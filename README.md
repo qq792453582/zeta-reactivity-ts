@@ -1,6 +1,6 @@
 # Zeta Reactivity
 
-一个轻量级的 TypeScript 响应式系统库，实现了细粒度的响应式编程模型。
+一个轻量级的 TypeScript 响应式系统库，参照了市面上常见的 "Signals" 框架（SolidJs，Angular，Vue），实现了细粒度的响应式编程模型。
 
 
 ## 核心概念
