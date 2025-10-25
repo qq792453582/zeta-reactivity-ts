@@ -10,8 +10,6 @@
 Signal 是响应式系统的基础，用于存储可变的响应式状态。
 
 ```typescript
-import { createSignal } from 'zeta-reactivity';
-
 // 创建一个 signal
 const count = createSignal(0);
 
@@ -48,8 +46,6 @@ const signal = createSignal("hello", (a, b) => a.length === b.length);
 Computed 从其他响应式值派生出新的响应式值，只在依赖变化时重新计算。
 
 ```typescript
-import { createSignal, createComputed, createRoot, tracked } from 'zeta-reactivity';
-
 const firstName = createSignal('John');
 const lastName = createSignal('Doe');
 
