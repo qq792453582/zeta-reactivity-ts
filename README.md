@@ -188,6 +188,7 @@ flushWatches();
 - `tracked(root, fn)` - 在追踪上下文中执行
 - `untracked(fn)` - 在非追踪上下文中执行
 - `onCleanup(fn)` - 注册清理函数
+- `getActiveConsumer()` 获取当前追踪的上下文
 
 ### 相等性 API
 
