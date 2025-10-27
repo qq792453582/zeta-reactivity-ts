@@ -154,6 +154,7 @@ createWatch(() => {
 // counter: 0, untracked: 0
 
 untrackedCounter.set(1);
+flushWatches();
 // watch 不会重新运行，因为 untrackedCounter 是非追踪的
 
 counter.set(1);
