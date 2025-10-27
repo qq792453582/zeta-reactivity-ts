@@ -122,12 +122,22 @@ tracked(createRoot(), () => {
 
 ### `tracked()`
 
-`tracked()` 在响应式上下文中执行函数，允许捕获 signal 依赖项：
+`tracked()` 在响应式上下文中执行函数
 
 ```typescript
-tracked(createRoot(), () => {
-  const value = signal(); // 依赖项被追踪
+const value = createSignal(1);
+const root = tracked(createRoot(), () => {
+  // watch 被 root 所捕获，root 被释放掉后，watch也会一并被释放
+  createWatch(() => {
+    console.log(value());
+  });
 });
+
+root.dispose();
+
+flushWatches();
+
+// 不会有任何输出
 ```
 
 ### `untracked()`
