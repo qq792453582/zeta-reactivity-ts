@@ -37,7 +37,7 @@ export function producerNotifyConsumers(producer: ProducerNode) {
 	inNotificationPhase = true;
 	
 	for (const computation of producer.liveComputations) {
-		markedComputationDirty(computation)
+		markedComputationDirty(computation);
 	}
 	
 	inNotificationPhase = prev;

@@ -7,9 +7,8 @@ let flashingQueue = new Set<WatchNode>(); // 刷新中的队列，用于防止�
 
 export class WatchNode extends ComputationNode {
 	
-	
 	constructor(private callback?: () => void,
-				protected override options?: ComputationOptions) {
+				public override options?: ComputationOptions) {
 		super(options);
 	}
 	

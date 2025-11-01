@@ -16,6 +16,10 @@ export function execTeardown(teardown: ConsumerTeardown) {
 	}
 }
 
+export interface ConsumerOptions {
+	debugFlag?: unknown;
+}
+
 export class ConsumerNode {
 	/** 节点的层级，当他创建在其他 ConsumerNode 作用域中时，层级会+1 */
 	public readonly level: number = 0;
@@ -33,7 +37,7 @@ export class ConsumerNode {
 		return this._disposed;
 	}
 	
-	constructor(public owner?: any) {
+	constructor(public options?: ConsumerOptions) {
 		const activeConsumer = getActiveConsumer();
 		
 		if (activeConsumer) {
@@ -50,16 +54,16 @@ export class ConsumerNode {
 			execTeardown(teardown);
 			return;
 		}
-
+		
 		if (!this._cleanups) {
 			this._cleanups = new Set();
 		}
-
+		
 		this._cleanups.add(teardown);
 	}
 	
 	public removeCleanup(teardown: ConsumerTeardown) {
-		if (this._cleanups){
+		if (this._cleanups) {
 			this._cleanups.delete(teardown);
 		}
 	}
@@ -68,9 +72,9 @@ export class ConsumerNode {
 		const { _cleanups } = this;
 		if (_cleanups) {
 			this._cleanups = undefined;
-
+			
 			for (const teardown of _cleanups) {
-				execTeardown(teardown)	
+				execTeardown(teardown);
 			}
 		}
 	}
@@ -173,6 +177,6 @@ export function untrackedApply<T, A extends any[], R>(project: (this: T, ...args
 /**
  * 创建用于追踪响应上下文的对象
  * */
-export function createRoot(owner?: any) {
-	return new ConsumerNode(owner);
+export function createRoot(options?: ConsumerOptions) {
+	return new ConsumerNode(options);
 }

@@ -1,5 +1,5 @@
+import { describe, expect, test } from "vitest";
 import { createComputed, createRoot, createSignal, createWatch, flushWatches, setValueEqualsFn, tracked } from "../src";
-import { expect, test, describe } from 'vitest'
 
 describe("signals", () => {
 	test("should get and set value", () => {

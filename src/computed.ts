@@ -20,7 +20,7 @@ export class ComputedNode<T> extends ComputationNode implements ProducerNode {
 	private value?: T;
 	
 	constructor(private computation: () => T,
-				protected override options?: ComputedOptions<T>) {
+				public override options?: ComputedOptions<T>) {
 		super(options);
 	}
 	
@@ -33,6 +33,17 @@ export class ComputedNode<T> extends ComputationNode implements ProducerNode {
 		this.update();
 		
 		producerAccessed(this);
+		
+		return this.value as T;
+	}
+	
+	public peek(): T {
+		if (this.disposed) {
+			// 当计算节点被销毁后再调用，则直接返回computation的值，并不再具有响应式
+			return untracked(this.computation);
+		}
+		
+		this.update();
 		
 		return this.value as T;
 	}
@@ -75,7 +86,7 @@ export class ComputedNode<T> extends ComputationNode implements ProducerNode {
 		if (this.liveComputations) {
 			const { liveComputations } = this;
 			this.liveComputations = undefined;
-
+			
 			for (const consumer of liveComputations) {
 				consumer.seenProducers?.delete(this);
 			}
@@ -86,7 +97,10 @@ export class ComputedNode<T> extends ComputationNode implements ProducerNode {
 	
 }
 
-export type Computed<T> = (() => T) & { node: ComputedNode<T> }
+export type Computed<T> = (() => T) & {
+	peek: () => T,
+	node: ComputedNode<T>
+}
 
 /**
  * 创建一个计算信号，从表达式中导出一个反应值。
@@ -96,6 +110,9 @@ export type Computed<T> = (() => T) & { node: ComputedNode<T> }
 export function createComputed<T>(computation: () => T, options?: ComputedOptions<T>): Computed<T> {
 	const node = new ComputedNode(computation, options);
 	
-	return Object.assign(node.get.bind(node), { node });
+	return Object.assign(node.get.bind(node), {
+		node,
+		peek: node.peek.bind(node)
+	});
 }
 

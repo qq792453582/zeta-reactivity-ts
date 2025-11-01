@@ -12,8 +12,7 @@ export {
 	getSignal,
 	setSignalValue,
 	updateSignal,
-	mutableSignal,
-	signalValueChanged,
+	notifySignalValueChanged,
 	createSignal,
 	SignalNode,
 	Signal
@@ -38,7 +37,8 @@ export {
 	untrackedApply,
 	createRoot,
 	ConsumerTeardown,
-	ConsumerNode
+	ConsumerNode,
+	ConsumerOptions
 } from "./consumer";
 
 export {
